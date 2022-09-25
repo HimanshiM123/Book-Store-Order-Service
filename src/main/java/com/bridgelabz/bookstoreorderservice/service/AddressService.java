@@ -29,7 +29,7 @@ public class AddressService implements IAddressService{
     RestTemplate restTemplate;
     @Override
     public Response addAddress(AddressDTO addressDTO, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verify/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verifyUser/" + token, Boolean.class);
         if (isUserPresent) {
             Long userId = tokenUtil.decodeToken(token);
             AddressModel addressModel = new AddressModel(addressDTO);
@@ -42,7 +42,7 @@ public class AddressService implements IAddressService{
 
     @Override
     public List<AddressModel> getAllAddress(String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verify/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verifyUser/" + token, Boolean.class);
         if (isUserPresent) {
             Long userId = tokenUtil.decodeToken(token);
             Optional<AddressModel> addressModel = addressRepository.findById(userId);
@@ -60,7 +60,7 @@ public class AddressService implements IAddressService{
 
     @Override
     public Response updateAddress(long addressId, AddressDTO addressDTO, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verify/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verifyUser/" + token, Boolean.class);
         if (isUserPresent) {
             Long userId = tokenUtil.decodeToken(token);
             Optional<AddressModel> addressModel = addressRepository.findById(addressId);
@@ -79,7 +79,7 @@ public class AddressService implements IAddressService{
 
     @Override
     public Response deleteAddress(Long addressId, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verify/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verifyUser/" + token, Boolean.class);
         if (isUserPresent) {
             Long userId = tokenUtil.decodeToken(token);
             Optional<AddressModel> addressModel = addressRepository.findById(userId);

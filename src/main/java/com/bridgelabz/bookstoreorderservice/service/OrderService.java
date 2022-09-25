@@ -87,7 +87,7 @@ public class OrderService implements IOrderService{
 
     @Override
     public List<OrderModel> getAllOrderForUser(String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verify/" + token, boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://BS-USER-SERVICE:8083/user/verifyUser/" + token, boolean.class);
         if (isUserPresent){
             Long userId = tokenUtil.decodeToken(token);
             Optional<OrderModel> orderModel = orderRepository.findById(userId);
